@@ -1,20 +1,39 @@
-import { Component } from "solid-js";
+import { Component, createEffect, createSignal } from "solid-js";
 import { Link, useRoutes, useLocation } from "solid-app-router";
+import { invoke } from "@tauri-apps/api/tauri";
+import { supabase } from "./supabase/supabaseClient";
 
 import styles from "./App.module.scss";
 import { routes } from "./routes";
 
+import Auth from "./pages/Auth";
+import Account from "./pages/Account";
 import CardEntry from "./components/CardEntry";
 
 const App: Component = () => {
   const location = useLocation();
   const Route = useRoutes(routes);
+  // const invoke = window.__TAURI__.invoke;
+
+  const testFunc = () => {
+    invoke("my_custom_command");
+  };
+
+  const [session, setSession] = createSignal(null);
+
+  createEffect(() => {
+    setSession(supabase.auth.session() as any);
+
+    supabase.auth.onAuthStateChange((_event, session: any) => {
+      setSession(session);
+    });
+  });
 
   return (
     <div class={styles.App}>
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#" onClick={(e) => e.preventDefault()}>
+          <a class="navbar-brand" href="#" onClick={testFunc}>
             <img
               src="../assets/brand/bootstrap-logo-white.svg"
               width="38"
@@ -47,6 +66,16 @@ const App: Component = () => {
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/">
                   Home
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/auth">
+                  Auth
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/account">
+                  Account
                 </a>
               </li>
               <li class="nav-item">
@@ -126,9 +155,16 @@ const App: Component = () => {
         </div>
       </nav>
 
-      <main>
-          <Route />
-      </main>
+      <div class="container" style={{ padding: "50px 0 100px 0" }}>
+        {!session() ? (
+          <Auth />
+        ) : (
+          <Account key={session().user.id} session={session()} />
+        )}
+      </div>
+      {/* <main>
+        <Route />
+      </main> */}
     </div>
   );
 };

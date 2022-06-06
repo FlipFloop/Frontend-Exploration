@@ -16,9 +16,13 @@ const About = () => {
 
       <p>
         <span>We love</span>
-        <Suspense fallback={<div class="spinner-border text-info" aria-role="status">
-                  <span class="visually-hidden">Loading...</span>
-                </div>}>
+        <Suspense
+          fallback={
+            <div class="spinner-border text-info" aria-role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          }
+        >
           <span>&nbsp;{name()}</span>
         </Suspense>
       </p>
