@@ -7,13 +7,13 @@ import {
 import { supabase } from "../supabase/supabaseClient";
 
 interface AccountProps extends ComponentProps<any> {
-  // add props here
+  key: any;
+  session: any;
 }
 
 const Account: Component<AccountProps> = (props: AccountProps) => {
   const [loading, setLoading] = createSignal(true);
   const [username, setUsername] = createSignal(null);
-  const [avatar_url, setAvatarUrl] = createSignal(null);
   const [password, setPassword] = createSignal(null);
 
   createEffect(() => {
@@ -28,7 +28,7 @@ const Account: Component<AccountProps> = (props: AccountProps) => {
 
       let { data, error, status } = await supabase
         .from("profiles")
-        .select(`username, avatar_url`)
+        .select(`username`)
         .eq("id", user.id)
         .single();
 
@@ -38,7 +38,6 @@ const Account: Component<AccountProps> = (props: AccountProps) => {
 
       if (data) {
         setUsername(data.username);
-        setAvatarUrl(data.avatar_url);
       }
     } catch (error: any) {
       alert(error.message);
@@ -57,7 +56,6 @@ const Account: Component<AccountProps> = (props: AccountProps) => {
       const updates = {
         id: user.id,
         username: username(),
-        avatar_url: avatar_url(),
         updated_at: new Date(),
       };
 

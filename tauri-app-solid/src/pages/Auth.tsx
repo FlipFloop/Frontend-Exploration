@@ -21,7 +21,7 @@ const Auth: Component<AuthProps> = (props: AuthProps) => {
         email: email(),
         password: password(),
       });
-      alert(email() + ' ' + password())
+      alert(email() + " " + password());
       if (error) throw error;
       alert("Signing in!");
     } catch (error: any) {
@@ -31,20 +31,8 @@ const Auth: Component<AuthProps> = (props: AuthProps) => {
     }
   };
 
-  // const resetPass = async (email: any) => {
-  //   const { error, data } = await supabase.auth.api.updateUser(access_token, {
-  //     password: new_password,
-  //   });
-  //   // const { data, error } = await supabase.auth.api.resetPasswordForEmail(
-  //   //   email
-  //   // );
-
-  //   // return { data, error };
-  // };
-
   const createAccount = async (e: any) => {
     e.preventDefault();
-
     try {
       const { user, session, error } = await supabase.auth.signUp({
         email: email(),
@@ -54,9 +42,6 @@ const Auth: Component<AuthProps> = (props: AuthProps) => {
     } catch (error: any) {
       alert(error);
     }
-
-    // invoke('print_creds', {email: email as string, password: password as string})
-    // victor.guyard@icloud.com
   };
 
   return (
@@ -95,23 +80,8 @@ const Auth: Component<AuthProps> = (props: AuthProps) => {
                 onChange={(e: any) => setName(e.target.value)}
               />
               <button type="submit" class="button block" aria-live="polite">
-                Sign In
+                Sign In or Create Account
               </button>
-              <button type="submit" class="button block" aria-live="polite">
-                Create Account
-              </button>
-              {/* <label for="email">Email</label>
-            <input
-              id="email"
-              class="inputField"
-              type="email"
-              placeholder="Your email"
-              value={email()}
-              onChange={(e: any) => setEmail(e.target.value)}
-            />
-            <button type="submit" class="button block" aria-live="polite">
-              Send magic link
-            </button> */}
             </form>
           </>
         )}
