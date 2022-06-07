@@ -15,10 +15,6 @@ const App: Component = () => {
   const Route = useRoutes(routes);
   // const invoke = window.__TAURI__.invoke;
 
-  const testFunc = () => {
-    invoke("my_custom_command");
-  };
-
   const [session, setSession] = createSignal(null);
 
   createEffect(() => {
@@ -33,7 +29,7 @@ const App: Component = () => {
     <div class={styles.App}>
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#" onClick={testFunc}>
+          <a class="navbar-brand" href="#">
             <img
               src="../assets/brand/bootstrap-logo-white.svg"
               width="38"
