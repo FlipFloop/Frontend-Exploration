@@ -1,25 +1,18 @@
-import type { Component } from 'solid-js';
+import type { Component } from "solid-js";
+import { Link, useRoutes, useLocation } from "solid-app-router";
 
-import logo from './logo.svg';
-import styles from './App.module.css';
+import logo from "./logo.svg";
+import { routes } from "./routes";
+import styles from "./App.module.scss";
 
 const App: Component = () => {
+  const location = useLocation();
+  const Route = useRoutes(routes);
   return (
     <div class={styles.App}>
-      <header class={styles.header}>
-        <img src={logo} class={styles.logo} alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          class={styles.link}
-          href="https://github.com/solidjs/solid"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Solid
-        </a>
-      </header>
+      <main>
+        <Route />
+      </main>
     </div>
   );
 };
