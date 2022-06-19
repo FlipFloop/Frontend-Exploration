@@ -20,12 +20,16 @@ export const routes: RouteDefinition[] = [
     component: lazy(() => import("./pages/Auth")),
   },
   {
+    path: "/demo",
+    component: lazy(() => import("./pages/Demo")),
+  },
+  {
+    path: "/newCard",
+    component: lazy(() => import("./pages/CreateCard")),
+  },
+  {
     path: "/account",
-    component: Account,
-    data: {
-      key: session().user.id,
-      session: session(),
-    },
+    // component: Account(key=session().user.id, session=session())
   },
   {
     path: "**",
