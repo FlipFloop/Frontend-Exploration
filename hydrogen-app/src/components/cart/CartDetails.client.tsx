@@ -10,13 +10,13 @@ import {
 
 import {Button, Text, CartLineItem, CartEmpty} from '~/components';
 
-export function CartDetails({
+export const CartDetails = ({
   layout,
   onClose,
 }: {
   layout: 'drawer' | 'page';
   onClose?: () => void;
-}) {
+}) => {
   const {lines} = useCart();
   const scrollRef = useRef(null);
   const {y} = useScroll(scrollRef);
@@ -66,7 +66,7 @@ export function CartDetails({
       </section>
     </form>
   );
-}
+};
 
 function CartCheckoutActions() {
   const {checkoutUrl} = useCart();
@@ -86,7 +86,7 @@ function CartCheckoutActions() {
   );
 }
 
-function OrderSummary() {
+const OrderSummary = () => {
   const {cost} = useCart();
   return (
     <>
@@ -104,4 +104,4 @@ function OrderSummary() {
       </dl>
     </>
   );
-}
+};
