@@ -18,6 +18,8 @@ struct Course {
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn get_courses() -> String {
+    let mut free_courses: Vec<Vec<u16>> = vec![vec![], vec![]];
+
     // course num, course full remain, waitlist full
     let mut course_nums: [(u16, bool, bool); 4] = [
         (21135, true, true),
@@ -129,21 +131,19 @@ fn get_courses() -> String {
     for num in course_nums.iter() {
         if !num.1 {
             println!("Course {} has a free spot.", num.0);
+            free_courses[0].push(num.0);
         }
         if !num.2 {
             println!("Course {} has a free waitlist slot.", num.0);
-        }
-
-        if !num.1 {
-            return format!("Course {} has a free spot.", num.0);
-        }
-        if !num.2 {
-            return format!("Course {} has a free waitlist slot.", num.0);
+            free_courses[1].push(num.0);
         }
     }
 
-    // let mut waitlist_courses: [u16] = [];
-    return format!("None");
+    return format!(
+        "Course(s) {:?} has a free spot. \n
+    Course {:?} has a free waitlist slot.",
+        free_courses[0], free_courses[1]
+    );
 }
 
 fn main() {
