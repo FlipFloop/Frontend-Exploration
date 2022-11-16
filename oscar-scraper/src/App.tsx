@@ -6,7 +6,9 @@ import { open } from "@tauri-apps/api/shell";
 const App = () => {
   const [data, setData] = createSignal("");
 
-  const [courses, setCourses] = createSignal([21135, 25587, 27395, 24649]);
+  const [courses, setCourses] = createSignal([
+    21135, 25587, 27395, 24649,
+  ]);
 
   const getData = async () => {
     // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
