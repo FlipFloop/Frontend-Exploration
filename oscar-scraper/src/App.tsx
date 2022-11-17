@@ -1,4 +1,4 @@
-import { createRenderEffect, createSignal } from "solid-js";
+import { createSignal } from "solid-js";
 import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
 import { open } from "@tauri-apps/api/shell";
